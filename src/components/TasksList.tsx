@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import TaskDialog from './TaskDialog';
+import './DialogStyles.module.css';
 
 const TasksContainer = styled.div``;
 const Title = styled.h2`
@@ -57,6 +59,7 @@ const TasksList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [newTask, setNewTask] = useState('');
+  const [showTaskDialog, setShowTaskDialog] = useState(false);
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -117,33 +120,49 @@ const TasksList = () => {
     }
   };
 
+  const handleAddTaskClick = () => {
+    setShowTaskDialog(true);
+  };
+
   return (
     <TasksContainer>
-      <Title>✅ Tasks</Title>
-      <AddTaskForm onSubmit={handleAdd}>
-        <AddInput
-          value={newTask}
-          onChange={e => setNewTask(e.target.value)}
-          placeholder="Add a task..."
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Title>📝 Tasks</Title>
+        <AddButton onClick={handleAddTaskClick}>Add Task</AddButton>
+      </div>
+      {showTaskDialog && (
+        <TaskDialog
+          onClose={() => setShowTaskDialog(false)}
+          onCreate={(task) => console.log('Task created:', task)}
         />
-        <AddButton type="submit">Add</AddButton>
-      </AddTaskForm>
+      )}
       {loading && <div>Loading...</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      {!loading && tasks.length === 0 && <div style={{ color: '#888' }}>No tasks yet.</div>}
-      {tasks.map(task => (
-        <TaskCard key={task.id}>
-          <TaskLabel>
-            <TaskCheckbox
-              type='checkbox'
-              checked={task.completed}
-              onChange={() => handleToggle(task.id, !task.completed)}
-            />
+      {!loading && tasks.length === 0 && (
+        <div style={{ color: '#888' }}>No tasks yet.</div>
+      )}
+      <div>
+        <h3>Overdue Tasks</h3>
+        {tasks.filter(task => task.dueDate < new Date().toISOString()).map(task => (
+          <TaskCard key={task.id}>
             {task.title}
-          </TaskLabel>
-          <DeleteButton onClick={() => handleDelete(task.id)}>Delete</DeleteButton>
-        </TaskCard>
-      ))}
+            <div>
+              <DeleteButton onClick={() => handleDelete(task.id)}>Delete</DeleteButton>
+            </div>
+          </TaskCard>
+        ))}
+      </div>
+      <div>
+        <h3>Completed Tasks</h3>
+        {tasks.filter(task => task.completed).map(task => (
+          <TaskCard key={task.id}>
+            {task.title}
+            <div>
+              <DeleteButton onClick={() => handleDelete(task.id)}>Delete</DeleteButton>
+            </div>
+          </TaskCard>
+        ))}
+      </div>
     </TasksContainer>
   );
 };

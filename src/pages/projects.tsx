@@ -1,7 +1,10 @@
-import React from 'react';
-import PageTemplate from '../components/PageTemplate';
-import ProjectsList from '../components/ProjectsList';
+import ProjectsList from "@/components/ProjectsList";
+import "@/components/ProjectsList.css"; // Make sure to import CSS here
 
-const ProjectsPage = () => <PageTemplate Component={ProjectsList} />;
-
-export default ProjectsPage;
+export default function ProjectsPage() {
+  return (
+    <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+      <ProjectsList />
+    </div>
+  );
+}

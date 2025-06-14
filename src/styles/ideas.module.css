@@ -1,0 +1,87 @@
+.pageContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #000;
+}
+
+.leftSection {
+  display: none;
+}
+
+.rightSection {
+  width: 100%;
+  padding: 2rem;
+  color: #fff;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.input {
+  width: 300px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.addButton {
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #0066ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.emptyState {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.addIdeaButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0066ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ideaList {
+  margin-top: 2rem;
+}
+
+.ideaCard {
+  background-color: #333;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ideaText {
+  font-size: 1rem;
+}
+
+.deleteButton {
+  padding: 0.5rem 1rem;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

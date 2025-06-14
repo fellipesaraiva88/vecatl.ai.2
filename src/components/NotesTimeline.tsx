@@ -2,21 +2,26 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 
-const TimelineContainer = styled.div``;
+const TimelineContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--background);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+`;
 const Title = styled.h2`
   font-size: 1.5em;
   margin-bottom: 24px;
   font-weight: 600;
 `;
 const NoteCard = styled.div`
-  display: flex;
-  align-items: center;
   background: var(--card-bg);
+  padding: 16px;
   border: 1px solid var(--card-border);
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
-  padding: 20px;
-  margin-bottom: 16px;
 `;
 const Badge = styled.div`
   width: 10px;
