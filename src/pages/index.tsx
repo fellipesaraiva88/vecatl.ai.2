@@ -5,19 +5,20 @@ import ProjectsList from '../components/ProjectsList';
 import NotesTimeline from '../components/NotesTimeline';
 import TasksList from '../components/TasksList';
 import styles from './index.module.css';
+import { TRANSLATIONS } from '../constants/translations';
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('Ideas');
+  const [activeSection, setActiveSection] = useState('Ideias');
 
   const renderSection = () => {
     switch (activeSection) {
-      case 'Ideas':
+      case 'Ideias':
         return <IdeasList />;
-      case 'Projects':
+      case 'Projetos':
         return <ProjectsList />;
-      case 'Notes':
+      case 'Anotações':
         return <NotesTimeline />;
-      case 'Tasks':
+      case 'Tarefas':
         return <TasksList />;
       default:
         return <IdeasList />;
@@ -28,10 +29,10 @@ export default function Home() {
     <div className={styles.container}>
       <ChatScreen />
       <div className={styles.sidebar}>
-        <button onClick={() => setActiveSection('Ideas')}>Ideas</button>
-        <button onClick={() => setActiveSection('Projects')}>Projects</button>
-        <button onClick={() => setActiveSection('Notes')}>Notes</button>
-        <button onClick={() => setActiveSection('Tasks')}>Tasks</button>
+        <button onClick={() => setActiveSection('Ideias')}>{TRANSLATIONS.nav.ideas}</button>
+        <button onClick={() => setActiveSection('Projetos')}>{TRANSLATIONS.nav.projects}</button>
+        <button onClick={() => setActiveSection('Anotações')}>{TRANSLATIONS.nav.notes}</button>
+        <button onClick={() => setActiveSection('Tarefas')}>{TRANSLATIONS.nav.tasks}</button>
       </div>
       <div className={styles.mainContent}>{renderSection()}</div>
     </div>

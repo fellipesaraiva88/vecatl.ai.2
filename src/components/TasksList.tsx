@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TaskDialog from './TaskDialog';
+import { TRANSLATIONS } from '../constants/translations';
 import './DialogStyles.module.css';
 
 const TasksContainer = styled.div``;
@@ -69,7 +70,7 @@ const TasksList = () => {
       const data = await res.json();
       setTasks(data);
     } catch {
-      setError('Failed to load tasks.');
+      setError(TRANSLATIONS.tasks.error);
     }
     setLoading(false);
   };
@@ -90,7 +91,7 @@ const TasksList = () => {
       setNewTask('');
       fetchTasks();
     } catch {
-      setError('Failed to add task.');
+      setError(TRANSLATIONS.tasks.addError);
     }
   };
 
@@ -103,7 +104,7 @@ const TasksList = () => {
       });
       fetchTasks();
     } catch {
-      setError('Failed to update task.');
+      setError(TRANSLATIONS.tasks.updateError);
     }
   };
 
@@ -116,7 +117,7 @@ const TasksList = () => {
       });
       fetchTasks();
     } catch {
-      setError('Failed to delete task.');
+      setError(TRANSLATIONS.tasks.deleteError);
     }
   };
 
@@ -127,8 +128,8 @@ const TasksList = () => {
   return (
     <TasksContainer>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Title>📝 Tasks</Title>
-        <AddButton onClick={handleAddTaskClick}>Add Task</AddButton>
+        <Title>{TRANSLATIONS.tasks.title}</Title>
+        <AddButton onClick={handleAddTaskClick}>{TRANSLATIONS.tasks.addTask}</AddButton>
       </div>
       {showTaskDialog && (
         <TaskDialog
@@ -136,29 +137,29 @@ const TasksList = () => {
           onCreate={(task) => console.log('Task created:', task)}
         />
       )}
-      {loading && <div>Loading...</div>}
+      {loading && <div>{TRANSLATIONS.tasks.loading}</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {!loading && tasks.length === 0 && (
-        <div style={{ color: '#888' }}>No tasks yet.</div>
+        <div style={{ color: '#888' }}>{TRANSLATIONS.tasks.empty}</div>
       )}
       <div>
-        <h3>Overdue Tasks</h3>
+        <h3>{TRANSLATIONS.tasks.overdue}</h3>
         {tasks.filter(task => task.dueDate < new Date().toISOString()).map(task => (
           <TaskCard key={task.id}>
             {task.title}
             <div>
-              <DeleteButton onClick={() => handleDelete(task.id)}>Delete</DeleteButton>
+              <DeleteButton onClick={() => handleDelete(task.id)}>{TRANSLATIONS.tasks.delete}</DeleteButton>
             </div>
           </TaskCard>
         ))}
       </div>
       <div>
-        <h3>Completed Tasks</h3>
+        <h3>{TRANSLATIONS.tasks.completed}</h3>
         {tasks.filter(task => task.completed).map(task => (
           <TaskCard key={task.id}>
             {task.title}
             <div>
-              <DeleteButton onClick={() => handleDelete(task.id)}>Delete</DeleteButton>
+              <DeleteButton onClick={() => handleDelete(task.id)}>{TRANSLATIONS.tasks.delete}</DeleteButton>
             </div>
           </TaskCard>
         ))}

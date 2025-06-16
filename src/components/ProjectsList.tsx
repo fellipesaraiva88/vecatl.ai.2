@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProjectDialog from "./ProjectDialog";
+import { TRANSLATIONS } from "../constants/translations";
 
 type Project = {
   id: string;
@@ -30,9 +31,9 @@ export default function ProjectsList() {
     <div style={styles.container}>
       <div style={styles.inner}>
         <div style={styles.header}>
-          <h2 style={styles.heading}>Projects</h2>
+          <h2 style={styles.heading}>{TRANSLATIONS.projects.title}</h2>
           <button onClick={() => setShowDialog(true)} style={styles.addBtn}>
-            + New Project
+            {TRANSLATIONS.projects.newProject}
           </button>
         </div>
 

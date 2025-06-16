@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { TRANSLATIONS } from '../constants/translations';
 
 const TimelineContainer = styled.div`
   display: flex;
@@ -97,7 +99,7 @@ const NotesTimeline = () => {
       const data = await res.json();
       setNotes(data);
     } catch {
-      setError('Failed to load notes.');
+      setError(TRANSLATIONS.notes.error);
     }
     setLoading(false);
   };
@@ -129,7 +131,7 @@ const NotesTimeline = () => {
       setImportant(false);
       fetchNotes();
     } catch {
-      setError('Failed to add note.');
+      setError(TRANSLATIONS.notes.addError);
     }
   };
 
@@ -142,30 +144,30 @@ const NotesTimeline = () => {
       });
       fetchNotes();
     } catch {
-      setError('Failed to delete note.');
+      setError(TRANSLATIONS.notes.deleteError);
     }
   };
 
   return (
     <TimelineContainer>
-      <Title>📝 Notes</Title>
+      <Title>{TRANSLATIONS.notes.title}</Title>
       <AddNoteForm onSubmit={handleAdd}>
         <AddInput
           value={newNote}
           onChange={e => setNewNote(e.target.value)}
-          placeholder="Add a note..."
+          placeholder={TRANSLATIONS.notes.placeholder}
         />
         <label style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-          <input type="checkbox" checked={important} onChange={e => setImportant(e.target.checked)} /> Important
+          <input type="checkbox" checked={important} onChange={e => setImportant(e.target.checked)} /> {TRANSLATIONS.notes.important}
         </label>
-        <AddButton type="submit">Add</AddButton>
+        <AddButton type="submit">{TRANSLATIONS.notes.add}</AddButton>
       </AddNoteForm>
-      {loading && <div>Loading...</div>}
+      {loading && <div>{TRANSLATIONS.notes.loading}</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}
-      {!loading && notes.length === 0 && <div style={{ color: '#888' }}>No notes yet.</div>}
+      {!loading && notes.length === 0 && <div style={{ color: '#888' }}>{TRANSLATIONS.notes.empty}</div>}
       {Object.entries(groupedNotes).map(([date, notes]) => (
         <GroupedNotes key={date}>
-          <GroupTitle>{format(new Date(date), 'MMMM dd, yyyy')}</GroupTitle>
+          <GroupTitle>{format(new Date(date), 'dd \'de\' MMMM \'de\' yyyy', { locale: ptBR })}</GroupTitle>
           {notes.map(note => (
             <NoteCard key={note.id}>
               <Badge style={{ background: note.isImportant ? 'red' : 'var(--primary)' }} />
@@ -173,7 +175,7 @@ const NotesTimeline = () => {
                 <NoteText>{note.title}</NoteText>
                 <NoteDate>{format(new Date(note.createdAt), 'hh:mm a')}</NoteDate>
               </div>
-              <DeleteButton onClick={() => handleDelete(note.id)}>Delete</DeleteButton>
+              <DeleteButton onClick={() => handleDelete(note.id)}>{TRANSLATIONS.notes.delete}</DeleteButton>
             </NoteCard>
           ))}
         </GroupedNotes>

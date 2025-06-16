@@ -1,59 +1,201 @@
 .sidebar {
-  width: 240px;
+  width: 280px;
   height: 100vh;
-  background-color: #121212;
-  color: white;
-  padding-top: 20px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-fg);
+  padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: fixed;
   top: 0;
-  right: 0; /* 👈 Move sidebar to right */
-  left: unset; /* 👈 Make sure it’s not stuck on left */
-  z-index: 100;
+  right: 0;
+  left: unset;
+  z-index: 1000;
+  border-left: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .logo {
+  width: 48px;
+  height: 48px;
+  background: var(--sidebar-accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.logoText {
   font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
-  background-color: #007bff;
+  font-weight: 800;
   color: white;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.brandName {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sidebar-fg);
+  margin: 0;
+  letter-spacing: -0.5px;
 }
 
 .nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.navList {
   list-style: none;
   padding: 0;
-  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
 }
 
 .navItem {
-  margin: 10px 0;
+  position: relative;
 }
 
 .link {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  color: #aaa;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: rgba(248, 250, 252, 0.7);
   text-decoration: none;
-  gap: 12px;
-  transition: 0.3s;
+  border-radius: 12px;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--sidebar-hover);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.link:hover::before {
+  opacity: 1;
 }
 
 .link:hover {
-  background-color: #1e1e1e;
+  color: var(--sidebar-fg);
+  transform: translateX(-4px);
+}
+
+.linkContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+}
+
+.icon {
+  font-size: 18px;
+  transition: transform var(--transition-fast);
+}
+
+.text {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+.link:hover .icon {
+  transform: scale(1.1);
+}
+
+.active {
+  background: var(--sidebar-accent) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.active::before {
+  opacity: 0 !important;
+}
+
+.activeIndicator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: white;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--glass-border);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--sidebar-hover);
+  border-radius: 12px;
+  transition: all var(--transition-fast);
+}
+
+.userInfo:hover {
+  background: rgba(139, 92, 246, 0.2);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--sidebar-accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
   color: white;
 }
 
-.active .link {
-  background-color: #007bff33;
-  color: white;
-  font-weight: bold;
+.userName {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(248, 250, 252, 0.9);
 }

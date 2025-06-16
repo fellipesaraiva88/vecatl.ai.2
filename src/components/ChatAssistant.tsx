@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import './DialogStyles.module.css';
+import { TRANSLATIONS } from '../constants/translations';
 
 export default function ChatAssistant() {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
@@ -31,7 +32,7 @@ export default function ChatAssistant() {
       const data = await res.json();
       setMessages((prev) => [...prev, { role: 'assistant', content: data.result }]);
     } catch (error) {
-      setMessages((prev) => [...prev, { role: 'assistant', content: '❌ Error fetching response.' }]);
+      setMessages((prev) => [...prev, { role: 'assistant', content: TRANSLATIONS.chat.errorMessage }]);
     } finally {
       setLoading(false);
     }
@@ -41,11 +42,7 @@ export default function ChatAssistant() {
     if (e.key === 'Enter') sendMessage();
   };
 
-  const quickPrompts = [
-    "Help me clarify the task",
-    "Let's update details for 'hi'",
-    "Start working on Freelancing project",
-  ];
+  const quickPrompts = TRANSLATIONS.chat.quickPrompts;
 
   return (
     <div style={{
@@ -68,8 +65,20 @@ export default function ChatAssistant() {
           justifyContent: 'center',
           gap: '24px',
         }}>
-          <img src="/logo.svg" alt="logo" style={{ width: 48 }} />
-          <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>What can I help with?</h2>
+          <div style={{
+            width: 64,
+            height: 64,
+            background: 'var(--sidebar-accent)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '28px',
+            fontWeight: 'bold',
+            color: 'white',
+            boxShadow: '0 8px 24px rgba(139, 92, 246, 0.4)'
+          }}>V</div>
+          <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>{TRANSLATIONS.chat.whatCanIHelp}</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {quickPrompts.map((prompt, i) => (
               <button
@@ -121,7 +130,7 @@ export default function ChatAssistant() {
               </div>
             </div>
           ))}
-          {loading && <div style={{ color: '#888', fontStyle: 'italic' }}>Thinking...</div>}
+          {loading && <div style={{ color: '#888', fontStyle: 'italic' }}>Pensando...</div>}
           <div ref={messagesEndRef} />
         </div>
       )}
@@ -140,7 +149,7 @@ export default function ChatAssistant() {
           <input
             type="text"
             value={input}
-            placeholder="Message Vectal..."
+            placeholder={TRANSLATIONS.chat.placeholder}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             style={{
